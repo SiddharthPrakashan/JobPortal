@@ -1,0 +1,589 @@
+{
+	"info": {
+		"_postman_id": "0a725130-c548-4702-8953-5da1de3af4b1",
+		"name": "JobPortal",
+		"description": "StartFragment\n\n# ASP .NET Core Web API - JobPortal Project\n\nEndFragmen",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10957659"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"admin@jobportal.com\",\r\n  \"password\": \"admin@1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7202/api/v1/Authenticate/Login",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7202",
+							"path": [
+								"api",
+								"v1",
+								"Authenticate",
+								"Login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Jobs",
+			"item": [
+				{
+					"name": "List Jobs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJzdWIiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwiZW1haWwiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwianRpIjoiNGZjMGFhZGQtZjFkNi00ZTMyLWI2MTMtM2I3OTZmOTg0MTExIiwibmJmIjoxNjc5ODU1MjA5LCJleHAiOjE2Nzk4NTcwMDksImlhdCI6MTY3OTg1NTIwOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.AMBLdDD9WMnsZ9wZGWIjdiihOG8ssILd-GVIxfGzPDTlyHbHVdMQmJ7MUH1dXZDa4pFMDKoCsgZ6KAp35erUnQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"q\": \"Software Dev\",\r\n  \"pageNo\": 1,\r\n  \"pageSize\": 10,\r\n  \"locationId\": null,\r\n  \"departmentId\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7202/api/v1/Jobs/List",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7202",
+							"path": [
+								"api",
+								"v1",
+								"Jobs",
+								"List"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Job",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJzdWIiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwiZW1haWwiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwianRpIjoiNGZjMGFhZGQtZjFkNi00ZTMyLWI2MTMtM2I3OTZmOTg0MTExIiwibmJmIjoxNjc5ODU1MjA5LCJleHAiOjE2Nzk4NTcwMDksImlhdCI6MTY3OTg1NTIwOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.AMBLdDD9WMnsZ9wZGWIjdiihOG8ssILd-GVIxfGzPDTlyHbHVdMQmJ7MUH1dXZDa4pFMDKoCsgZ6KAp35erUnQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7202/api/v1/Jobs/5",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7202",
+							"path": [
+								"api",
+								"v1",
+								"Jobs",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Jobs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJzdWIiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwiZW1haWwiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwianRpIjoiNGZjMGFhZGQtZjFkNi00ZTMyLWI2MTMtM2I3OTZmOTg0MTExIiwibmJmIjoxNjc5ODU1MjA5LCJleHAiOjE2Nzk4NTcwMDksImlhdCI6MTY3OTg1NTIwOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.AMBLdDD9WMnsZ9wZGWIjdiihOG8ssILd-GVIxfGzPDTlyHbHVdMQmJ7MUH1dXZDa4pFMDKoCsgZ6KAp35erUnQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7202/api/v1/Jobs",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7202",
+							"path": [
+								"api",
+								"v1",
+								"Jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Job",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJzdWIiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwiZW1haWwiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwianRpIjoiNGZjMGFhZGQtZjFkNi00ZTMyLWI2MTMtM2I3OTZmOTg0MTExIiwibmJmIjoxNjc5ODU1MjA5LCJleHAiOjE2Nzk4NTcwMDksImlhdCI6MTY3OTg1NTIwOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.AMBLdDD9WMnsZ9wZGWIjdiihOG8ssILd-GVIxfGzPDTlyHbHVdMQmJ7MUH1dXZDa4pFMDKoCsgZ6KAp35erUnQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"IT\",\r\n  \"description\": \"asfg sashfasohfa is\",\r\n  \"locationId\": 2,\r\n  \"departmentId\": 3,\r\n  \"closingDate\": \"2023-03-26T18:38:39.515Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7202/api/v1/Jobs",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7202",
+							"path": [
+								"api",
+								"v1",
+								"Jobs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Job",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJzdWIiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwiZW1haWwiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwianRpIjoiNGZjMGFhZGQtZjFkNi00ZTMyLWI2MTMtM2I3OTZmOTg0MTExIiwibmJmIjoxNjc5ODU1MjA5LCJleHAiOjE2Nzk4NTcwMDksImlhdCI6MTY3OTg1NTIwOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.AMBLdDD9WMnsZ9wZGWIjdiihOG8ssILd-GVIxfGzPDTlyHbHVdMQmJ7MUH1dXZDa4pFMDKoCsgZ6KAp35erUnQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"IT\",\r\n  \"description\": \"asfg sashfasohfa is\",\r\n  \"locationId\": 2,\r\n  \"departmentId\": 3,\r\n  \"closingDate\": \"2023-03-26T18:38:39.515Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7202/api/v1/Jobs/6",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7202",
+							"path": [
+								"api",
+								"v1",
+								"Jobs",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Locations",
+			"item": [
+				{
+					"name": "Locations",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJzdWIiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwiZW1haWwiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwianRpIjoiNGZjMGFhZGQtZjFkNi00ZTMyLWI2MTMtM2I3OTZmOTg0MTExIiwibmJmIjoxNjc5ODU1MjA5LCJleHAiOjE2Nzk4NTcwMDksImlhdCI6MTY3OTg1NTIwOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.AMBLdDD9WMnsZ9wZGWIjdiihOG8ssILd-GVIxfGzPDTlyHbHVdMQmJ7MUH1dXZDa4pFMDKoCsgZ6KAp35erUnQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7202/api/v1/Locations",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7202",
+							"path": [
+								"api",
+								"v1",
+								"Locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Location",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJzdWIiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwiZW1haWwiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwianRpIjoiNGZjMGFhZGQtZjFkNi00ZTMyLWI2MTMtM2I3OTZmOTg0MTExIiwibmJmIjoxNjc5ODU1MjA5LCJleHAiOjE2Nzk4NTcwMDksImlhdCI6MTY3OTg1NTIwOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.AMBLdDD9WMnsZ9wZGWIjdiihOG8ssILd-GVIxfGzPDTlyHbHVdMQmJ7MUH1dXZDa4pFMDKoCsgZ6KAp35erUnQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7202/api/v1/Locations/4",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7202",
+							"path": [
+								"api",
+								"v1",
+								"Locations",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Location",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJzdWIiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwiZW1haWwiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwianRpIjoiNGZjMGFhZGQtZjFkNi00ZTMyLWI2MTMtM2I3OTZmOTg0MTExIiwibmJmIjoxNjc5ODU1MjA5LCJleHAiOjE2Nzk4NTcwMDksImlhdCI6MTY3OTg1NTIwOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.AMBLdDD9WMnsZ9wZGWIjdiihOG8ssILd-GVIxfGzPDTlyHbHVdMQmJ7MUH1dXZDa4pFMDKoCsgZ6KAp35erUnQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Chennai Office\",\r\n  \"city\": \"Chennai\",\r\n  \"state\": \"Tamil Nadu\",\r\n  \"country\": \"India\",\r\n  \"zip\": 4456\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7202/api/v1/Locations",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7202",
+							"path": [
+								"api",
+								"v1",
+								"Locations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Location",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJzdWIiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwiZW1haWwiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwianRpIjoiNGZjMGFhZGQtZjFkNi00ZTMyLWI2MTMtM2I3OTZmOTg0MTExIiwibmJmIjoxNjc5ODU1MjA5LCJleHAiOjE2Nzk4NTcwMDksImlhdCI6MTY3OTg1NTIwOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.AMBLdDD9WMnsZ9wZGWIjdiihOG8ssILd-GVIxfGzPDTlyHbHVdMQmJ7MUH1dXZDa4pFMDKoCsgZ6KAp35erUnQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"Chennai Office\",\r\n  \"city\": \"Chennai\",\r\n  \"state\": \"Tamil Nadu\",\r\n  \"country\": \"India\",\r\n  \"zip\": 4456\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7202/api/v1/Locations/4",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7202",
+							"path": [
+								"api",
+								"v1",
+								"Locations",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Location",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJzdWIiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwiZW1haWwiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwianRpIjoiNGZjMGFhZGQtZjFkNi00ZTMyLWI2MTMtM2I3OTZmOTg0MTExIiwibmJmIjoxNjc5ODU1MjA5LCJleHAiOjE2Nzk4NTcwMDksImlhdCI6MTY3OTg1NTIwOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.AMBLdDD9WMnsZ9wZGWIjdiihOG8ssILd-GVIxfGzPDTlyHbHVdMQmJ7MUH1dXZDa4pFMDKoCsgZ6KAp35erUnQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7202/api/v1/Locations/4",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7202",
+							"path": [
+								"api",
+								"v1",
+								"Locations",
+								"4"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Departments",
+			"item": [
+				{
+					"name": "Departments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJzdWIiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwiZW1haWwiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwianRpIjoiNGZjMGFhZGQtZjFkNi00ZTMyLWI2MTMtM2I3OTZmOTg0MTExIiwibmJmIjoxNjc5ODU1MjA5LCJleHAiOjE2Nzk4NTcwMDksImlhdCI6MTY3OTg1NTIwOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.AMBLdDD9WMnsZ9wZGWIjdiihOG8ssILd-GVIxfGzPDTlyHbHVdMQmJ7MUH1dXZDa4pFMDKoCsgZ6KAp35erUnQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7202/api/v1/Departments",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7202",
+							"path": [
+								"api",
+								"v1",
+								"Departments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Departments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJzdWIiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwiZW1haWwiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwianRpIjoiNGZjMGFhZGQtZjFkNi00ZTMyLWI2MTMtM2I3OTZmOTg0MTExIiwibmJmIjoxNjc5ODU1MjA5LCJleHAiOjE2Nzk4NTcwMDksImlhdCI6MTY3OTg1NTIwOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.AMBLdDD9WMnsZ9wZGWIjdiihOG8ssILd-GVIxfGzPDTlyHbHVdMQmJ7MUH1dXZDa4pFMDKoCsgZ6KAp35erUnQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7202/api/v1/Departments/3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7202",
+							"path": [
+								"api",
+								"v1",
+								"Departments",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Department",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7202/api/v1/Departments/6",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7202",
+							"path": [
+								"api",
+								"v1",
+								"Departments",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Departments",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJzdWIiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwiZW1haWwiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwianRpIjoiNGZjMGFhZGQtZjFkNi00ZTMyLWI2MTMtM2I3OTZmOTg0MTExIiwibmJmIjoxNjc5ODU1MjA5LCJleHAiOjE2Nzk4NTcwMDksImlhdCI6MTY3OTg1NTIwOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.AMBLdDD9WMnsZ9wZGWIjdiihOG8ssILd-GVIxfGzPDTlyHbHVdMQmJ7MUH1dXZDa4pFMDKoCsgZ6KAp35erUnQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"IT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7202/api/v1/Departments/3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7202",
+							"path": [
+								"api",
+								"v1",
+								"Departments",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Department",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjEiLCJzdWIiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwiZW1haWwiOiJhZG1pbkBqb2Jwb3J0YWwuY29tIiwianRpIjoiNGZjMGFhZGQtZjFkNi00ZTMyLWI2MTMtM2I3OTZmOTg0MTExIiwibmJmIjoxNjc5ODU1MjA5LCJleHAiOjE2Nzk4NTcwMDksImlhdCI6MTY3OTg1NTIwOSwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo5MDAwIiwiYXVkIjoiaHR0cDovL2xvY2FsaG9zdDozMDAwIn0.AMBLdDD9WMnsZ9wZGWIjdiihOG8ssILd-GVIxfGzPDTlyHbHVdMQmJ7MUH1dXZDa4pFMDKoCsgZ6KAp35erUnQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"IT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7202/api/v1/Departments",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7202",
+							"path": [
+								"api",
+								"v1",
+								"Departments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

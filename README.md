@@ -27,3 +27,7 @@ Make a post request to the below URL (port number may vary)
 Copy the token and add it to the Bearer Token Authorization header to make request.  
 All the endpoint have been protected except the below endpoint.  
 > /api/v1/jobs/list
+
+  
+## API documentation Info
+API documentation has been done in postman and json file exported into /API-Documentation directory.
