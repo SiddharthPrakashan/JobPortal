@@ -13,9 +13,11 @@ namespace JobPortal.WebModels.JobWebModels
         public string? Description { get; set; }
 
         [Required]
+        [Range(1, 100, ErrorMessage = "Please enter a valid Location ID")]
         public int? LocationId { get; set; }
 
         [Required]
+        [Range(1, 100, ErrorMessage = "Please enter a valid Department ID")]
         public int? DepartmentId { get; set; }
 
         [Required]

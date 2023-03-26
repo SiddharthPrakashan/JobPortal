@@ -88,7 +88,7 @@ namespace JobPortal.Models
 
                 entity.Property(e => e.Password).HasMaxLength(256);
 
-                entity.Property(e => e.Username).HasMaxLength(10);
+                entity.Property(e => e.Username).HasMaxLength(50);
             });
 
             OnModelCreatingPartial(modelBuilder);

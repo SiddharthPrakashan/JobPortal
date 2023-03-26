@@ -6,9 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using JobPortal.Models;
+using System.Net;
+using JobPortal.WebModels.DepartmentWebModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JobPortal.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
@@ -21,104 +25,144 @@ namespace JobPortal.Controllers
             _context = context;
         }
 
-        // GET: api/Departments
+        /// <summary>
+        /// GET: api/v1/Departments
+        /// Get all Departments
+        /// </summary>
+        /// <returns>List of Departments</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Department>>> GetDepartments()
+        public async Task<ActionResult<IEnumerable<GetDepartmentResponseWebModel>>> GetDepartments()
         {
-          if (_context.Departments == null)
-          {
-              return NotFound();
-          }
-            return await _context.Departments.ToListAsync();
-        }
-
-        // GET: api/Departments/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Department>> GetDepartment(int id)
-        {
-          if (_context.Departments == null)
-          {
-              return NotFound();
-          }
-            var department = await _context.Departments.FindAsync(id);
-
-            if (department == null)
-            {
-                return NotFound();
-            }
-
-            return department;
-        }
-
-        // PUT: api/Departments/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutDepartment(int id, Department department)
-        {
-            if (id != department.DepartmentId)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(department).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DepartmentExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                var result = await _context.Departments.Select(dept => new GetDepartmentResponseWebModel
+                            {
+                                Id = dept.DepartmentId,
+                                Title = dept.Title,
+                            }).ToListAsync();
 
-            return NoContent();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Error retrieving department list");
+            }            
+        }
+
+        /// <summary>
+        /// GET: api/v1/Departments/1
+        /// Get Department by ID  
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Department object</returns>
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<GetDepartmentResponseWebModel>> GetDepartment(int id)
+        {
+            try
+            {
+                var dept = await _context.Departments.FindAsync(id);
+
+                if (dept == null)
+                {
+                    return NotFound($"Department with ID = {id} not found");
+                }
+
+                return new GetDepartmentResponseWebModel
+                {
+                    Id = dept.DepartmentId,
+                    Title = dept.Title,
+                };
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Error retrieving department");
+            }
+        }
+
+
+        /// <summary>
+        /// Put: api/v1/Departments/1
+        /// Update Departments by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="updateDept"></param>
+        /// <returns></returns>
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> PutDepartment(int id, UpdateDeptRequestWebModel updateDept)
+        {
+            try
+            {
+                var deptToUpdate = await _context.Departments.FindAsync(id);
+
+                if (deptToUpdate == null)
+                    return NotFound($"Department with ID = {id} not found");
+
+                deptToUpdate.Title = updateDept.Title;
+                await _context.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (Exception)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Error updating department");
+            }
         }
 
         // POST: api/Departments
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        /// <summary>
+        /// POST: api/Departments
+        /// Create Departments
+        /// </summary>
+        /// <param name="createDept"></param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<Department>> PostDepartment(Department department)
+        public async Task<ActionResult<Department>> PostDepartment(CreateDeptRequestWebModel createDept)
         {
-          if (_context.Departments == null)
-          {
-              return Problem("Entity set 'SQLServerDBContext.Departments'  is null.");
-          }
-            _context.Departments.Add(department);
-            await _context.SaveChangesAsync();
+            try
+            {
+                var newDept = new Department
+                {
+                    Title = createDept.Title,
+                };
 
-            return CreatedAtAction("GetDepartment", new { id = department.DepartmentId }, department);
+                _context.Departments.Add(newDept);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction(nameof(GetDepartment), new { id = newDept.DepartmentId }, null);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Error creating department");
+            }
         }
 
-        // DELETE: api/Departments/5
-        [HttpDelete("{id}")]
+
+        /// <summary>
+        /// DELETE: api/Departments/5
+        /// Delete Departments by ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteDepartment(int id)
         {
-            if (_context.Departments == null)
+            try
             {
-                return NotFound();
+                var deptToDelete = await _context.Departments.FindAsync(id);
+                if (deptToDelete == null)
+                {
+                    return NotFound($"Department with ID = {id} not found");
+                }
+
+                _context.Departments.Remove(deptToDelete);
+                await _context.SaveChangesAsync();
+
+                return NoContent();
             }
-            var department = await _context.Departments.FindAsync(id);
-            if (department == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Error deleting department");
             }
-
-            _context.Departments.Remove(department);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool DepartmentExists(int id)
-        {
-            return (_context.Departments?.Any(e => e.DepartmentId == id)).GetValueOrDefault();
         }
     }
 }

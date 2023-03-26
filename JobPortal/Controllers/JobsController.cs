@@ -12,9 +12,11 @@ using JobPortal.WebModels.JobWebModels;
 using JobPortal.WebModels.DepartmentWebModels;
 using JobPortal.WebModels.LocationWebModels;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JobPortal.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
@@ -37,11 +39,11 @@ namespace JobPortal.Controllers
         {
             try
             {
-                return await _context.Jobs.Include("Department").Include("Location").ToListAsync();
+                return await _context.Jobs.Include("Department").Include("Location").OrderByDescending(i => i.PostedDate).ToListAsync();
             }
             catch(Exception ex)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Error retrieving job list");
             }
         }
 
@@ -60,7 +62,7 @@ namespace JobPortal.Controllers
 
                 if (job == null)
                 {
-                    return NotFound();
+                    return NotFound($"Job with ID = {id} not found");
                 }
 
                 return new GetJobResponseWebModel
@@ -89,7 +91,7 @@ namespace JobPortal.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Error retrieving job");
             }         
         }
 
@@ -123,13 +125,13 @@ namespace JobPortal.Controllers
                 jobToUpdate.ClosingDate = updateJob.ClosingDate;
 
                 await _context.SaveChangesAsync();
+
+                return Ok();
             }
             catch (Exception)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError);
-            }
-
-            return Ok();
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Error updating job");
+            }        
         }
 
         /// <summary>
@@ -157,13 +159,11 @@ namespace JobPortal.Controllers
                 _context.Jobs.Add(newJob);
                 await _context.SaveChangesAsync();
 
-                //return CreatedAtAction("GetJob", new { id = newJob.JobId }, newJob);
-
-                return CreatedAtAction(nameof(GetJob), new { id = newJob.JobId }, newJob);
+                return CreatedAtAction(nameof(GetJob), new { id = newJob.JobId }, null);
             }
             catch (Exception ex)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Error creating job");
             } 
         }
 
@@ -191,7 +191,7 @@ namespace JobPortal.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Error deleting job");
             }           
         }
 
@@ -201,14 +201,25 @@ namespace JobPortal.Controllers
         /// </summary>
         /// <param name="listWebModel"></param>
         /// <returns>Total count, List of Jobs</returns>
+        [AllowAnonymous]
         [HttpPost("List")]
         public async Task<ActionResult<ListJobResponseWebModel>> ListJobs(ListDataRequestWebModel listWebModel)
         {
             try
             {
-                IQueryable<Job> query = _context.Jobs.Include("Department").Include("Location");
+                if (listWebModel.PageNo < 1)
+                    return BadRequest("Page Number cannot be less than 1");
+
+                if (listWebModel.PageSize < 1)
+                    return BadRequest("Page Size cannot be less than 1");
+
+                int pageNo = listWebModel.PageNo - 1;
+                int pageSize = listWebModel.PageSize;
+
+                IQueryable<Job> query = _context.Jobs.Include("Department").Include("Location").OrderByDescending(i => i.PostedDate);
 
                 string queryString = listWebModel.Q == null ? String.Empty : listWebModel.Q.Trim().ToLower();
+
                 if (!string.IsNullOrEmpty(listWebModel.Q))
                 {
                     query = query.Where(e => (e.Code == null ? false : e.Code.ToLower().Contains(queryString)) ||
@@ -232,7 +243,7 @@ namespace JobPortal.Controllers
                 return new ListJobResponseWebModel
                 {
                     Total = result.Count,
-                    Data = result.Skip(listWebModel.PageNo * listWebModel.PageSize).Take(listWebModel.PageSize).Select(job => new GetJobResponseWebModelMinimal
+                    Data = result.Skip(pageNo * pageSize).Take(pageSize).Select(job => new GetJobResponseWebModelMinimal
                     {
                         Id = job.JobId,
                         Code = job.Code,
@@ -246,7 +257,7 @@ namespace JobPortal.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode((int)HttpStatusCode.InternalServerError, "Error retrieving job list");
             }   
         }
     }
