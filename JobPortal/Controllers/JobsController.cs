@@ -39,7 +39,7 @@ namespace JobPortal.Controllers
         {
             try
             {
-                return await _context.Jobs.Include("Department").Include("Location").OrderByDescending(i => i.PostedDate).ToListAsync();
+                return await _context.Jobs.OrderByDescending(i => i.PostedDate).ToListAsync();
             }
             catch(Exception ex)
             {
